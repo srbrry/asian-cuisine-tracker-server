@@ -1,4 +1,4 @@
-const express =require('express')
+const express = require('express')
 
 const Food = require('../models/food')
 
@@ -34,7 +34,7 @@ router.post('/foods', (req, res, next) => {
     // food: {}
     Food.create(req.body.food)
         .then(food => {
-            // top lvl of this object is character
+            // top lvl of this object is food
             res.status(201).json({ food: food })
         })
         .catch(next)

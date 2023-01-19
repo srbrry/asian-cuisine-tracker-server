@@ -20,7 +20,7 @@ mongoose.connect(db, {
 // starting an express app
 const app = express()
 
-app.use(cors({ origin: `http://127.0.0.1:5500` }))
+app.use(cors({ origin: `http://127.0.0.1:5502` }))
 
 // sending json 
 // need to be able to accept json
