@@ -7,6 +7,8 @@ const db = require('./config/db')
 const PORT = 2001
 
 const foodRoutes = require('./routes/food-routes')
+const requestLogger = require('./lib/request-logger')
+const foodSeed = require('./lib/food-seed')
 
 // deprecation warning
 mongoose.set('strictQuery', true)
@@ -26,8 +28,11 @@ app.use(cors({ origin: `http://127.0.0.1:5502` }))
 // need to be able to accept json
 app.use(express.json())
 
+app.use(requestLogger)
+
 // server needs to know about this router!!!
 app.use(foodRoutes)
+app.use('/seed', foodSeed)
 
 app.listen(PORT, () => {
     console.log('listening on ' + PORT)

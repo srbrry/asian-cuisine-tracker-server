@@ -1,5 +1,7 @@
 const express = require('express')
 
+const { handle404 } = require('../lib/custom-errors')
+
 const Food = require('../models/food')
 
 const router = express.Router()
@@ -37,6 +39,31 @@ router.post('/foods', (req, res, next) => {
             // top lvl of this object is food
             res.status(201).json({ food: food })
         })
+        .catch(next)
+})
+
+// UPDATE
+// PATCH /character/:id
+router.patch('/foods/:id', (req, res, next) => {
+    Food.findById(req.params.id)
+        .then(handle404)
+        .then(food => {
+            // { food: {} }
+            return food.updateOne(req.body.food)
+        })
+        .then(() => res.sendStatus(204))
+        .catch(next)
+})
+
+// DELETE
+// DELETE /foods/:id
+router.delete('/foods/:id', (req, res, next) => {
+    Food.findById(req.params.id)
+        .then(handle404)
+        .then(food => {
+            return food.deleteOne()
+        })
+        .then(() => res.sendStatus(204))
         .catch(next)
 })
 
