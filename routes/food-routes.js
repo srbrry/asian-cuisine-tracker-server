@@ -20,13 +20,13 @@ router.get('/foods', (req, res, next) => {
 })
 
 // SHOW
-// GET /characters/:id
+// GET /characters/5a7db6c74d55bc51bdf39793
 router.get('/foods/:id', (req, res, next) => {
-    Food.findById(req.params.id)
-        .then(food => {
-            res.status(200).json({ food: food })
-        })
-        .catch(next)
+	// req.params.id will be set based on the `:id` in the route
+	Food.findById(req.params.id)
+		.then(handle404)
+		.then((food) => res.status(200).json({ food: food }))
+		.catch(next)
 })
 
 // CREATE
